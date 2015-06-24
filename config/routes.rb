@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'for_sale/index'
+
   get 'welcome/index'
 
   resources :listings
