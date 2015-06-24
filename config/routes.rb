@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'jobs/index'
+
   get 'for_sale/index'
 
   get 'welcome/index'
