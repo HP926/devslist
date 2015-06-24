@@ -1,4 +1,5 @@
 class ListingsController < ApplicationController
+
   before_action :set_listing, only: [:show, :edit, :update, :destroy]
 
   # GET /listings
@@ -27,9 +28,15 @@ class ListingsController < ApplicationController
     @listing = Listing.new(listing_params)
 
     respond_to do |format|
-      if @listing.save
-        format.html { redirect_to @listing, notice: 'Listing was successfully created.' }
-        format.json { render :show, status: :created, location: @listing }
+      if @listing.save 
+        if @listing.category_id == 1
+          format.html { redirect_to for_sale_index_path, notice: 'Listing was successfully created.' }
+          format.json { render :show, status: :created, location: @listing }
+        else @listing.category_id == 2
+          format.html { redirect_to jobs_index_path, notice: 'Listing was successfully created.' }
+          format.json { render :show, status: :created, location: @listing }
+        end
+
       else
         format.html { render :new }
         format.json { render json: @listing.errors, status: :unprocessable_entity }

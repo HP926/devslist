@@ -18,17 +18,22 @@ RSpec.describe ListingsController, type: :controller do
 
   describe "POST #create" do
     it "returns http success" do
-      post :create, id:listing.id 
+      # binding.pry
+      post :create, listing: {name:'new name', price: 100, description:"test", category_id:1, wage:12}
       expect(response).to have_http_status(:redirect)
     end
   end
 
-  describe "GET #update" do
-    it "returns http success" do
-      get :update
-      expect(response).to have_http_status(:success)
-    end
-  end
+  describe "PUT #update" do
+   it "updates successfully" do
+     new_description = "new description"
+     put :update, id: listing.id, listing: {description: 'new description'}
+     expect(response).to have_http_status(:redirect)
+     updated_listing = listing.reload
+     expect(updated_listing.description).to eq(new_description)
+     expect(flash[:notice]).to be_present
+   end
+ end
 
   describe "GET #edit" do
     it "returns http success" do
