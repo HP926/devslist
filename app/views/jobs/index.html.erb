@@ -17,6 +17,7 @@
       <div class="col-sm-12">
         <% @listings.each do |listing| %>
         <tr>
+          <td><%= image_tag listing.image.url(:thumb), alt: "Responsive image" %><td/>
           <td><%= listing.name %></td>
           <td><%= listing.description %></td>
           <td>$<%= listing.wage %>/hour</td>
