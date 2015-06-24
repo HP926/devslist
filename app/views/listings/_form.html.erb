@@ -16,7 +16,7 @@
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :price %><br>
+    <%= f.label :price %>: (leave blank if job listing)<br>
     <%= f.number_field :price %>
   </div>
   <div class="field">
@@ -24,11 +24,11 @@
     <%= f.text_area :description %>
   </div>
   <div class="field">
-    <%= f.label :category_id %><br>
+    <%= f.label :category_id %> (1 = For Sale, 2 = Job Posting)<br>
     <%= f.number_field :category_id %>
   </div>
   <div class="field">
-    <%= f.label :wage %><br>
+    <%= f.label :wage %>: (leave blank if for sale item)<br>
     <%= f.number_field :wage %>
   </div>
   <div class="actions">
