@@ -13,22 +13,31 @@ class ListingsController < ApplicationController
   def show
   end
 
+
+  # GET /listings/1/edit
+  def edit
+  end
+
+  # PATCH/PUT /listings/1
+  # PATCH/PUT /listings/1.json
+  def update
+    respond_to do |format|
+      if @listing.update(listing_params)
+        format.html { redirect_to @listing, notice: 'Listing was successfully updated.' }
+        format.json { render :show, status: :ok, location: @listing }
+      else
+        flash[:error] = "it didnt update"
+        format.html { render :edit }
+        format.json { render json: @listing.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   # GET /listings/new
   def new
     @listing = Listing.new
   end
-
-  # GET /listings/1/edit
-  def edit
-    if @listing.update(listing_params)
-      flash[:success] = "Listing updated"
-      redirect_to(listings_path)
-    else
-      flash[:error] = "Listing not updated"
-      render :edit
-    end 
-  end
-
+  
   # POST /listings
   # POST /listings.json
   def create
@@ -52,28 +61,13 @@ class ListingsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /listings/1
-  # PATCH/PUT /listings/1.json
-  def update
-    respond_to do |format|
-      if @listing.update(listing_params)
-        format.html { redirect_to @listing, notice: 'Listing was successfully updated.' }
-        format.json { render :show, status: :ok, location: @listing }
-      else
-        flash[:error] = "it didnt update"
-        format.html { render :edit }
-        format.json { render json: @listing.errors, status: :unprocessable_entity }
-      end
-    end
-  end
 
   # DELETE /listings/1
   # DELETE /listings/1.json
   def destroy
+    @listing.destroy
     respond_to do |format|
      @listing.destroy
-       format.html { redirect_to listings_url, notice: 'Listing was successfully destroyed.' }
-       format.json { head :no_content }
       format.html { redirect_to root_path, notice: 'Listing was successfully destroyed.' }
       format.json { head :no_content }
     end
@@ -88,7 +82,6 @@ class ListingsController < ApplicationController
       end
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def listing_params
       params.require(:listing).permit(:name, :price, :description, :category_id, :wage, :image)
     end

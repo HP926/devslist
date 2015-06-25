@@ -32,11 +32,11 @@
     <%= @listing.wage %>
   </p>
 
-  <%= link_to 'Edit', edit_listing_path(@listing) %> |
+  <%= link_to 'Edit', edit_listing_path(@listing), class: "btn btn-info" %> |
   <% if @listing.category_id == 1%>
-  <%= link_to 'For Sale', for_sale_index_path %>
+  <%= link_to 'For Sale', for_sale_index_path, class: "btn btn-primary"  %>
   <% else%>
-  <%= link_to 'Jobs', jobs_index_path %>
+  <%= link_to 'Jobs', jobs_index_path, class: "btn btn-primary"  %>
   <% end %>
 </body>
 </html>
