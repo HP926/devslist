@@ -17,7 +17,7 @@ RSpec.describe ListingsController, type: :controller do
   end
 
   describe "POST #create" do
-    it "returns http success" do
+    it "created successfully" do
       # binding.pry
       post :create, listing: {name:'new name', price: 100, description:"test", category_id:1, wage:12}
       expect(response).to have_http_status(:redirect)
@@ -25,7 +25,7 @@ RSpec.describe ListingsController, type: :controller do
   end
 
   describe "PUT #update" do
-   it "updates successfully" do
+   it "updated successfully!" do
      new_description = "new description"
      put :update, id: listing.id, listing: {description: 'new description'}
      expect(response).to have_http_status(:redirect)
@@ -33,19 +33,37 @@ RSpec.describe ListingsController, type: :controller do
      expect(updated_listing.description).to eq(new_description)
      expect(flash[:notice]).to be_present
    end
+
+   it "did NOT update!" do
+     put :update, id: listing.id, listing:{name: nil}
+     expect(flash[:error]).to be_present
+     expect(response).to render_template(:edit)
+   end 
  end
 
   describe "GET #edit" do
-    it "returns http success" do
-      get :edit, id:listing.id
+    it "Edits Listing" do
+      get :edit, id:listing.id, listing:{name:' New Name'}
+      expect(response).to have_http_status(:redirect)
+    end
+
+    it 'doesnt edit' do
+      get :edit, id:'1'
+      expect(response).to have_http_status(:not_found)
+    end
+
+    it "doesnt edit without a name" do
+      get :edit, id:listing.id, listing:{name: nil }
       expect(response).to have_http_status(:success)
+      expect(listing.reload.name).to_not be_nil
+      expect(response).to render_template(:edit)
     end
   end
 
-  describe "GET #destroy" do
-    it "returns http success" do
-      get :destroy, id:listing.id
-      expect(response).to have_http_status(:redirect)
+  describe "DELETE #destroy" do
+    it "deletes listing" do
+      delete :destroy, id:listing.id 
+      expect(Listing.count).to eq(0)
     end
   end
 
@@ -58,16 +76,6 @@ RSpec.describe ListingsController, type: :controller do
     end
   end
 
-  describe "PUT #update" do
-    it "updated successfully!" do
-      name = 'updated name'
-      put :update, id: listing.id, listing: {name: name, price: 100, description: "test" }
-      expect(response).to have_http_status(:redirect)
-      updated_listing = listing.reload
-
-      expect(updated_listing.name).to eq(name)
-      # expect(flash[:notice]).to be_present
-    end
-  end
+  
 
 end
