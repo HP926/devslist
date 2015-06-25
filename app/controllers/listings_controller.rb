@@ -39,12 +39,13 @@ class ListingsController < ApplicationController
         if @listing.category_id == 1
           format.html { redirect_to for_sale_index_path, notice: 'Listing was successfully created.' }
           format.json { render :show, status: :created, location: @listing }
-        else @listing.category_id == 2
+        else 
           format.html { redirect_to jobs_index_path, notice: 'Listing was successfully created.' }
           format.json { render :show, status: :created, location: @listing }
         end
 
       else
+        flash[:error] = "Listing was NOT made"
         format.html { render :new }
         format.json { render json: @listing.errors, status: :unprocessable_entity }
       end

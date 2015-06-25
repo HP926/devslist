@@ -18,9 +18,19 @@ RSpec.describe ListingsController, type: :controller do
 
   describe "POST #create" do
     it "created successfully" do
-      # binding.pry
       post :create, listing: {name:'new name', price: 100, description:"test", category_id:1, wage:12}
-      expect(response).to have_http_status(:redirect)
+      expect(response).to redirect_to(for_sale_index_path)
+    end
+
+    it "created successfully" do
+      post :create, listing: {name:'new name', price: 100, description:"test", category_id:2, wage:12}
+      expect(response).to redirect_to(jobs_index_path)
+    end
+
+    it "was NOT created" do
+     post :create, listing: {name: nil}
+     expect(response).to_not have_http_status(:redirect)
+     expect(flash[:error]).to be_present
     end
   end
 
