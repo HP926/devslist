@@ -20,6 +20,13 @@ class ListingsController < ApplicationController
 
   # GET /listings/1/edit
   def edit
+    if @listing.update(listing_params)
+      flash[:success] = "Listing updated"
+      redirect_to(listings_path)
+    else
+      flash[:error] = "Listing not updated"
+      render :edit
+    end 
   end
 
   # POST /listings
@@ -52,6 +59,7 @@ class ListingsController < ApplicationController
         format.html { redirect_to @listing, notice: 'Listing was successfully updated.' }
         format.json { render :show, status: :ok, location: @listing }
       else
+        flash[:error] = "it didnt update"
         format.html { render :edit }
         format.json { render json: @listing.errors, status: :unprocessable_entity }
       end
@@ -61,17 +69,20 @@ class ListingsController < ApplicationController
   # DELETE /listings/1
   # DELETE /listings/1.json
   def destroy
-    @listing.destroy
     respond_to do |format|
-      format.html { redirect_to listings_url, notice: 'Listing was successfully destroyed.' }
-      format.json { head :no_content }
+     @listing.destroy
+       format.html { redirect_to listings_url, notice: 'Listing was successfully destroyed.' }
+       format.json { head :no_content }
     end
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_listing
-      @listing = Listing.find(params[:id])
+      @listing = Listing.find_by(id: params[:id])
+      unless @listing
+        render(text: "Listing not found with id: #{params[:id]}", status: :not_found)
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
