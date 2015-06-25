@@ -1,33 +1,42 @@
-<p id="notice"><%= notice %></p>
+<!DOCTYPE html>
+<html>
+<body>
+  <p id="notice"><%= notice %></p>
 
-<p>
-  <strong></strong>
-  <%= image_tag @listing.image.url(:medium) %>
-</p>
-<p>
-  <strong>Name:</strong>
-  <%= @listing.name %>
-</p>
+  <p>
+    <strong></strong>
+    <%= image_tag @listing.image.url(:medium) %>
+  </p>
+  <p>
+    <strong>Name:</strong>
+    <%= @listing.name %>
+  </p>
 
-<p>
-  <strong>Price:</strong>
-  <%= @listing.price %>
-</p>
+  <p>
+    <strong>Price:</strong>
+    <%= @listing.price %>
+  </p>
 
-<p>
-  <strong>Description:</strong>
-  <%= @listing.description %>
-</p>
+  <p>
+    <strong>Description:</strong>
+    <%= @listing.description %>
+  </p>
 
-<p>
-  <strong>Category:</strong>
-  <%= @listing.category_id %>
-</p>
+  <p>
+    <strong>Category:</strong>
+    <%= @listing.category_id %>
+  </p>
 
-<p>
-  <strong>Wage:</strong>
-  <%= @listing.wage %>
-</p>
+  <p>
+    <strong>Wage:</strong>
+    <%= @listing.wage %>
+  </p>
 
-<%= link_to 'Edit', edit_listing_path(@listing) %> |
-<%= link_to 'Home', root_path %>
+  <%= link_to 'Edit', edit_listing_path(@listing) %> |
+  <% if @listing.category_id == 1%>
+  <%= link_to 'For Sale', for_sale_index_path %>
+  <% else%>
+  <%= link_to 'Jobs', jobs_index_path %>
+  <% end %>
+</body>
+</html>
