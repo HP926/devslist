@@ -54,7 +54,7 @@ RSpec.describe ListingsController, type: :controller do
   describe "GET #edit" do
     it "Edits Listing" do
       get :edit, id:listing.id, listing:{name:' New Name'}
-      expect(response).to have_http_status(:redirect)
+      expect(response).to have_http_status(:success)
     end
 
     it 'doesnt edit' do
