@@ -1,7 +1,5 @@
-<!DOCTYPE html>
-<html>
-<body>
-  <p id="notice"><%= notice %></p>
+<div class="container contain-color">
+  <p id="notice"><%= notice %></p> 
 
   <p>
     <strong></strong>
@@ -36,7 +34,6 @@
   <% if @listing.category_id == 1%>
   <%= link_to 'For Sale', for_sale_index_path, class: "btn btn-primary"  %>
   <% else%>
-  <%= link_to 'Jobs', jobs_index_path, class: "btn btn-primary"  %>
+  <%= link_to 'All Jobs', jobs_index_path, class: "btn btn-primary"  %>
   <% end %>
-</body>
-</html>
+</div>
