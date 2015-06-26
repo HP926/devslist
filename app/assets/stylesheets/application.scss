@@ -28,3 +28,12 @@ body{
   border-radius: 6px;
 }
 
+#imagebar{
+  margin-left: 40%;
+    @media screen and (max-width: 800px) {
+     margin-left: 35%;  
+     @media screen and (max-width: 400px) {
+      margin-left: 20%;
+     }
+  }
+}

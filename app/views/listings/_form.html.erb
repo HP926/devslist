@@ -14,7 +14,7 @@
 
   <div class="field">
     <%= f.label :image %><br>
-    <%= f.file_field :image %>
+    <%= f.file_field :image, id: "imagebar" %>
   </div>
   <div class="field">
     <%= f.label :name %><br>
@@ -29,8 +29,12 @@
     <%= f.text_area :description %>
   </div>
   <div class="field">
-    <%= f.label :category_id %> (1 = For Sale, 2 = Job Posting)<br>
-    <%= f.number_field :category_id %>
+    <%= f.label :category_id %><br>
+    <%= f.select(:category_id) do %>
+  <% [['For Sale', 1], ['Jobs', 2]].each do |c| -%>
+    <%= content_tag(:option, c.first, value: c.last) %>
+  <% end %>
+  <% end %>
   </div>
   <div class="field">
     <%= f.label :wage %>: hourly(leave blank if for sale item)<br>
