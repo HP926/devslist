@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>Devslist</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <%= stylesheet_link_tag    'application', media: 'all'%>
   <%= csrf_meta_tags %>
 </head>
@@ -17,7 +18,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#page-top">DEVSLIST</a>
+        <a class="navbar-brand" href="#page-top"><h1>DEVSLIST</h1></a>
       </div>
 
       <!-- Collect the nav links, forms, and other content for toggling -->
@@ -25,9 +26,9 @@
         <ul class="nav navbar-nav navbar-right">
 
           <li class="hidden"><a href="#page-top"></a></li>
+          <li><a><%= link_to('Home', root_path) %></a></li>
           <li><a> <%=link_to('Jobs', jobs_index_path) %></a></li>
           <li><a><%= link_to('For Sale', for_sale_index_path) %></a></li>
-          <li><a><%= link_to('Home', root_path) %></a></li>
 
         </ul>
       </div>

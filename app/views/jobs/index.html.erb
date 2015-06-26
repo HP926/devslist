@@ -1,15 +1,11 @@
+<div class="container contain-color">
 <p id="notice"><%= notice %></p>
-
-<h1>Jobs</h1>
+<h1>Jobs</h1> <%= link_to 'New Listing', new_listing_path, class: "btn btn-default" %>
 
 <table class="table">
-  <!DOCTYPE html>
-<html>
-<body>
   <thead>
     <tr>
       <th>Image</th>
-      <th></th>
       <th>Name</th>
       <th>Description</th>
       <th>Wage</th>
@@ -21,24 +17,19 @@
     <div class="row">
       <div class="col-sm-12">
         <% @listings.each do |listing| %>
-        <tr>
-          <td><%= image_tag listing.image.url(:thumb), alt: "Responsive image" %><td/>
-          <td><%= listing.name %></td>
-          <td><%= listing.description %></td>
-          <td>$<%= listing.wage %>/hour</td>
-          <td><%= link_to 'More Info', listing, class: "btn btn-primary" %></td>
-          <td><%= link_to 'Edit', edit_listing_path(listing), class: "btn btn-warning" %></td>
-          <td><%= link_to 'Destroy', listing, method: :delete, class: "btn btn-danger",data: { confirm: 'Are you sure?' } %></td>
-        </tr>
+          <tr>
+            <td><%= image_tag listing.image.url(:thumb), alt: "Responsive image" %></td>
+            <td><%= listing.name %></td>
+            <td><%= listing.description %></td>
+            <td><%= listing.wage %>/hour</td>
+            <td><%= link_to 'More Info', listing, class: "btn btn-primary" %></td>
+            <td><%= link_to 'Edit', edit_listing_path(listing), class: "btn btn-success" %></td>
+            <td><%= link_to 'Destroy', listing, method: :delete, class: "btn btn-danger",data: { confirm: 'Are you sure?' } %></td>
+          </tr>
         <% end %>
       </div>
     </div>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Listing', new_listing_path, class: "btn btn-default" %>
-</body>
-</html>
+</div> 
 
