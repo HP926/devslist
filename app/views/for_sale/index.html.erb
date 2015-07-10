@@ -1,6 +1,8 @@
 <div class="container contain-color">
 <p id="notice"><%= notice %></p>
-<h1>For Sale</h1><%= link_to 'New Listing', new_listing_path, class: "btn btn-default"  %>
+<h1>For Sale</h1>
+
+<%#= link_to 'New Listing', new_listing_path, class: "btn btn-default"  %>
 
  <table class="table">
   <thead>
@@ -22,9 +24,14 @@
         <td>$<%= listing.price %></td>
         <td><%= listing.description %></td>
         <td><%= link_to 'More Info', listing, class: "btn btn-primary"  %></td>
-        <td><%= link_to 'Edit', edit_listing_path(listing), class: "btn btn-success"  %></td>
-        <td><%= link_to 'Destroy', listing, method: :delete, class: "btn btn-danger" , data: { confirm: 'Are you sure?' } %></td>
+        <% if listing.user == current_user %>
+        <td><%= link_to 'Edit', edit_listing_path(listing), class: "btn btn-success" %></td>
+        <td><%= link_to 'Destroy', listing, method: :delete, class: "btn btn-danger",data: { confirm: 'Are you sure?' } %></td>
       </tr>
+      <% end %>
+      <td><%= link_to 'Edit', edit_listing_path(listing), class: "btn btn-success"  %></td>
+      <td><%= link_to 'Destroy', listing, method: :delete, class: "btn btn-danger" , data: { confirm: 'Are you sure?' } %></td>
+    </tr>
     <% end %>
   </tbody>
 </table>

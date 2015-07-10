@@ -1,5 +1,7 @@
 class ListingsController < ApplicationController
   before_action :set_listing, only: [:show, :edit, :update, :destroy]
+  before_filter :authenticate_user!, :except => [:index, :show]
+  before_action :authorized_user, only: [:edit, :update, :destroy]
 
   # GET /listings
   # GET /listings.json
@@ -34,13 +36,13 @@ class ListingsController < ApplicationController
 
   # GET /listings/new
   def new
-    @listing = Listing.new
+    @listing = current_user.listings.build
   end
   
   # POST /listings
   # POST /listings.json
   def create
-    @listing = Listing.new(listing_params)
+    @listing = current_user.listings.build(listing_params)
 
     respond_to do |format|
       if @listing.save 
@@ -84,4 +86,9 @@ class ListingsController < ApplicationController
     def listing_params
       params.require(:listing).permit(:name, :price, :description, :category_id, :wage, :image)
     end
-end
+
+    def authorized_user
+      @listing = current_user.listings.find_by(id: params[:id])
+      redirect_to listings_path, notice: "Not authorized to edit this link" if @listing.nil?
+    end
+  end
